@@ -10,6 +10,7 @@ packages = [{include = "rag-backend"}]
 python = "^3.12"
 haystack-ai = "^2.10.3"
 pandas = "^2.2.3"
+trafilatura = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "22.*"
