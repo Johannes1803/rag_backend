@@ -59,5 +59,6 @@ WORKDIR /app
 # Copy your application code
 COPY rag_backend .
 
-# Default command
-ENTRYPOINT ["hayhooks", "run", "--host", "0.0.0.0", "--port", "1416"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
