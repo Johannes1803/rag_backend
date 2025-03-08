@@ -1,18 +1,22 @@
 from pathlib import Path
 from typing import Generator, List, Union
+
+from hayhooks import (
+    BasePipelineWrapper,
+    get_last_user_message,
+    log,
+    streaming_generator,
+)
 from haystack import Pipeline, PredefinedPipeline
-from hayhooks import get_last_user_message, BasePipelineWrapper, log, streaming_generator
-
-
-URLS = ["https://haystack.deepset.ai", "https://www.redis.io", "https://ssi.inc"]
 
 
 class PipelineWrapper(BasePipelineWrapper):
     def setup(self) -> None:
         pipeline_yaml = (Path(__file__).parent / "llm_only.yaml").read_text()
         self.pipeline = Pipeline.loads(pipeline_yaml)
-    def run_api(self, urls: List[str], question: str) -> str:
-        log.trace(f"Running pipeline with urls: {urls} and question: {question}")
+
+    def run_api(self, question: str) -> str:
+        log.trace(f"Running pipeline with question: {question}")
         result = self.pipeline.run({"prompt": {"query": question}})
         return result["llm"]["replies"][0]
 
