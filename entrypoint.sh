@@ -11,7 +11,7 @@ SERVER_PID=$!
 sleep 5
 
 # Deploy the pipeline files
-hayhooks pipeline deploy-files -n llm-only pipelines --overwrite
+hayhooks pipeline deploy-files -n llm-only llm_only_pipeline --overwrite
 
 # If you want the container to keep running with the server
 # Bring the server process to foreground
