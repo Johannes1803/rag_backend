@@ -7,7 +7,7 @@ from hayhooks import (
     log,
     streaming_generator,
 )
-from haystack import Pipeline, PredefinedPipeline
+from haystack import Pipeline
 
 
 class PipelineWrapper(BasePipelineWrapper):
