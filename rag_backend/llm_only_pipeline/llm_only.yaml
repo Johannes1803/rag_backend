@@ -1,28 +1,40 @@
 components:
-  llm:
+  generator:
     init_parameters:
-      api_base_url: null
       api_key:
         env_vars:
-          - OPENAI_API_KEY
-        strict: true
+        - AZURE_OPENAI_API_KEY
+        strict: false
         type: env_var
+      api_version: '2023-05-15'
+      azure_ad_token:
+        env_vars:
+        - AZURE_OPENAI_AD_TOKEN
+        strict: false
+        type: env_var
+      azure_ad_token_provider: null
+      azure_deployment: gpt-4o-mini
+      azure_endpoint: https://azure-cognitive-u0s67.openai.azure.com/
+      default_headers: {}
       generation_kwargs: {}
-      model: gpt-4o-mini
+      max_retries: 5
+      organization: null
       streaming_callback: null
       system_prompt: null
-    type: haystack.components.generators.openai.OpenAIGenerator
-
-  prompt:
+      timeout: 30.0
+    type: haystack.components.generators.azure.AzureOpenAIGenerator
+  prompt_builder:
     init_parameters:
+      required_variables: []
       template: |
         "Answer the given question: {{query}}
         Answer:
         "
+      variables: null
     type: haystack.components.builders.prompt_builder.PromptBuilder
-
+connection_type_validation: true
 connections:
-  - receiver: llm.prompt
-    sender: prompt.prompt
-
+- receiver: generator.prompt
+  sender: prompt_builder.prompt
+max_runs_per_component: 100
 metadata: {}

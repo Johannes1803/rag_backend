@@ -17,8 +17,8 @@ class PipelineWrapper(BasePipelineWrapper):
 
     def run_api(self, question: str) -> str:
         log.trace(f"Running pipeline with question: {question}")
-        result = self.pipeline.run({"prompt": {"query": question}})
-        return result["llm"]["replies"][0]
+        result = self.pipeline.run({"prompt_builder": {"query": question}})
+        return result["generator"]["replies"][0]
 
     def run_chat_completion(self, model: str, messages: List[dict], body: dict) -> Union[str, Generator]:
         log.trace(f"Running pipeline with model: {model}, messages: {messages}, body: {body}")
@@ -29,5 +29,5 @@ class PipelineWrapper(BasePipelineWrapper):
         # Streaming pipeline run, will return a generator
         return streaming_generator(
             pipeline=self.pipeline,
-            pipeline_run_args={"prompt": {"query": question}},
+            pipeline_run_args={"prompt_builder": {"query": question}},
         )
