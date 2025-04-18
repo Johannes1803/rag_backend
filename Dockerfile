@@ -1,5 +1,5 @@
 # Start a new stage for a smaller final image
-FROM deepset/hayhooks:v0.2.0
+FROM deepset/hayhooks:v0.6.0
 
 # Set up working directory
 WORKDIR /app
